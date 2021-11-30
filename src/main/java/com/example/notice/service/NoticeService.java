@@ -9,7 +9,9 @@ import com.example.notice.repository.AttachmentsRepository;
 import com.example.notice.repository.NoticeRepository;
 import com.example.notice.util.AttachmentsUtils;
 import java.util.List;
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,11 +24,13 @@ public class NoticeService {
   private final NoticeRepository noticeRepository;
   private final AttachmentsRepository attachmentsRepository;
   private final AttachmentsUtils attachmentsUtils;
+  private final ModelMapper modelMapper;
 
   public void insertNotice(NoticeRequestDto noticeRequestDto, List<MultipartFile> attachmentsList) {
 
     Notice notice = noticeRequestDto.toEntity(noticeRequestDto);
-    List<AttachmentsDto> attachmentsDtoList = attachmentsUtils.convertingMultipartFileToDtoList(attachmentsList);
+    List<AttachmentsDto> attachmentsDtoList = attachmentsUtils.convertingMultipartFileToDtoList(
+        attachmentsList);
 
     if (!attachmentsDtoList.isEmpty()) {
       for (AttachmentsDto attachmentsDto : attachmentsDtoList) {
@@ -35,5 +39,10 @@ public class NoticeService {
       }
     }
     noticeRepository.save(notice);
+  }
+
+  public NoticeRequestDto selectNotice(Long id) {
+    Notice notice = noticeRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    return modelMapper.map(notice, NoticeRequestDto.class);
   }
 }

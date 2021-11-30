@@ -1,7 +1,6 @@
 package com.example.notice.model.dto;
 
 import com.example.notice.entity.Attachments;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

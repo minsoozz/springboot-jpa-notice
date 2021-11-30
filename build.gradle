@@ -23,6 +23,7 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
+	implementation 'org.modelmapper:modelmapper:2.4.2'
 	implementation group: 'commons-io', name: 'commons-io', version: '2.4'
 }
 

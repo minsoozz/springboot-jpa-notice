@@ -4,7 +4,6 @@ import com.example.notice.model.request.NoticeRequestDto;
 import com.example.notice.service.NoticeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +21,7 @@ public class NoticeController {
 
   private final NoticeService noticeService;
 
+
   @PostMapping("")
   public void insertNotice(
       @RequestPart(value = "attachmentsList") List<MultipartFile> attachmentsList,
@@ -32,7 +32,7 @@ public class NoticeController {
 
   @GetMapping("/{id}")
   public void selectNotice(@PathVariable Long id) {
-
+    noticeService.selectNotice(id);
   }
 
   @PutMapping("/{id}")
