@@ -9,4 +9,6 @@ public abstract class BaseEntity {
 
   @CreatedDate
   private LocalDate createDate;
+
+  private LocalDate deleteDate;
 }

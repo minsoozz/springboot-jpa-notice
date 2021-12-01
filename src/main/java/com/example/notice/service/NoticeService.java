@@ -45,4 +45,8 @@ public class NoticeService {
     Notice notice = noticeRepository.findById(id).orElseThrow(NoSuchElementException::new);
     return modelMapper.map(notice, NoticeRequestDto.class);
   }
+
+  public void deleteNotice(Long id) {
+    noticeRepository.deleteById(id);
+  }
 }
