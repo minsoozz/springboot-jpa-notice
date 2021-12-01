@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  noticedb:
+    image: mariadb10.3:v1
+    container_name: notice-database
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/:/var/lib/mysql
+    environment:
+      MYSQL_DATABASAE: notice
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: minsoo
+      MYSQL_PASSWORD: 1234

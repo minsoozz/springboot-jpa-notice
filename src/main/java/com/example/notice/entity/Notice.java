@@ -1,6 +1,6 @@
 package com.example.notice.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,18 +26,37 @@ public class Notice extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column
+  @Column(nullable = false)
   private String title;
 
-  @Column
+  @Column(nullable = false)
   private String content;
 
-  @Column
-  private LocalDateTime startDate;
+  @Column(nullable = false)
+  private String writer;
 
-  @Column
-  private LocalDateTime endDate;
+  @Column(nullable = false)
+  private LocalDate startDate;
 
-  @OneToMany(mappedBy = "attachments", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Column(nullable = false)
+  private LocalDate endDate;
+
+  @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Attachments> attachmentsList = new ArrayList<>();
+
+  @Builder
+  public Notice(Long id, String title, String content, String writer, LocalDate startDate,
+      LocalDate endDate) {
+    this.id = id;
+    this.title = title;
+    this.content = content;
+    this.writer = writer;
+    this.startDate = startDate;
+    this.endDate = endDate;
+  }
+
+  public void addAttachments(Attachments attachments) {
+    this.attachmentsList.add(attachments);
+    attachments.addNotice(this);
+  }
 }

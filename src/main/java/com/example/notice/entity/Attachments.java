@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,18 +22,32 @@ public class Attachments extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column
+  @Column(nullable = false)
   private String path;
 
-  @Column
+  @Column(nullable = false)
   private String originalName;
 
-  @Column
+  @Column(nullable = false)
   private String systemName;
 
-  @Column
+  @Column(nullable = false)
   private Long volume;
 
   @ManyToOne
   private Notice notice;
+
+  @Builder
+  public Attachments(Long id, String path, String originalName, String systemName,
+      Long volume) {
+    this.id = id;
+    this.path = path;
+    this.originalName = originalName;
+    this.systemName = systemName;
+    this.volume = volume;
+  }
+
+  public void addNotice(Notice notice) {
+    this.notice = notice;
+  }
 }
