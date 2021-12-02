@@ -8,9 +8,7 @@ import com.example.notice.model.request.NoticeRequestDto;
 import com.example.notice.model.response.NoticeResponseDto;
 import com.example.notice.repository.AttachmentsRepository;
 import com.example.notice.repository.NoticeRepository;
-import com.example.notice.util.AttachmentsUtils;
 import java.util.List;
-import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +21,11 @@ public class NoticeService {
 
   private final NoticeRepository noticeRepository;
   private final AttachmentsRepository attachmentsRepository;
-  private final AttachmentsUtils attachmentsUtils;
+  private final AttachmentsService attachmentsService;
 
   public void insertNotice(NoticeRequestDto noticeRequestDto, List<MultipartFile> attachmentsList) {
-
     Notice notice = noticeRequestDto.toEntity(noticeRequestDto);
-    List<AttachmentsDto> attachmentsDtoList = attachmentsUtils.convertingMultipartFileToDtoList(
-        attachmentsList);
+    List<AttachmentsDto> attachmentsDtoList = attachmentsService.convertingMultipartFileToDtoList(attachmentsList);
 
     if (!attachmentsDtoList.isEmpty()) {
       for (AttachmentsDto attachmentsDto : attachmentsDtoList) {

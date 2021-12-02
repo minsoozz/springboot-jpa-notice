@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -30,6 +31,15 @@ public class AttachmentsDto {
         .originalName(attachmentsDto.getOriginalName())
         .systemName(attachmentsDto.getSystemName())
         .volume(attachmentsDto.getVolume())
+        .build();
+  }
+
+  public static AttachmentsDto of(MultipartFile multipartFile, String path, String uuid) {
+    return AttachmentsDto.builder()
+        .path(path)
+        .originalName(multipartFile.getOriginalFilename())
+        .systemName(uuid)
+        .volume(multipartFile.getSize())
         .build();
   }
 }
