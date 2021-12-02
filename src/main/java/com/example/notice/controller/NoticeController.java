@@ -1,6 +1,7 @@
 package com.example.notice.controller;
 
 import com.example.notice.model.request.NoticeRequestDto;
+import com.example.notice.model.response.NoticeResponseDto;
 import com.example.notice.service.NoticeService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,8 @@ public class NoticeController {
   }
 
   @GetMapping("/{id}")
-  public void selectNotice(@PathVariable Long id) {
-    noticeService.selectNotice(id);
+  public NoticeResponseDto selectNotice(@PathVariable Long id) {
+    return noticeService.selectNotice(id);
   }
 
   @PutMapping("/{id}")

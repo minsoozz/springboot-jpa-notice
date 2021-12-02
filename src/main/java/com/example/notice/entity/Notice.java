@@ -16,12 +16,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLDelete(sql = "UPDATE notice SET delete_date = NOW() WHERE id = ?")
+@Where(clause = "delete_date IS NULL")
 public class Notice extends BaseEntity {
 
   @Id
@@ -36,6 +38,9 @@ public class Notice extends BaseEntity {
 
   @Column(nullable = false)
   private String writer;
+
+  @Column(nullable = false)
+  private int views;
 
   @Column(nullable = false)
   private LocalDate startDate;

@@ -5,13 +5,13 @@ import com.example.notice.entity.Attachments;
 import com.example.notice.entity.Notice;
 import com.example.notice.model.dto.AttachmentsDto;
 import com.example.notice.model.request.NoticeRequestDto;
+import com.example.notice.model.response.NoticeResponseDto;
 import com.example.notice.repository.AttachmentsRepository;
 import com.example.notice.repository.NoticeRepository;
 import com.example.notice.util.AttachmentsUtils;
 import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +24,6 @@ public class NoticeService {
   private final NoticeRepository noticeRepository;
   private final AttachmentsRepository attachmentsRepository;
   private final AttachmentsUtils attachmentsUtils;
-  private final ModelMapper modelMapper;
 
   public void insertNotice(NoticeRequestDto noticeRequestDto, List<MultipartFile> attachmentsList) {
 
@@ -41,9 +40,8 @@ public class NoticeService {
     noticeRepository.save(notice);
   }
 
-  public NoticeRequestDto selectNotice(Long id) {
-    Notice notice = noticeRepository.findById(id).orElseThrow(NoSuchElementException::new);
-    return modelMapper.map(notice, NoticeRequestDto.class);
+  public NoticeResponseDto selectNotice(Long id) {
+    return noticeRepository.selectNotice(id);
   }
 
   public void deleteNotice(Long id) {
