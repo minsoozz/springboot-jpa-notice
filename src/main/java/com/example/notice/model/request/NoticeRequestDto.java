@@ -2,22 +2,22 @@ package com.example.notice.model.request;
 
 import com.example.notice.entity.Notice;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class NoticeRequestDto implements Serializable {
 
+  private static final long serialVersionUID = -8366073361742189237L;
+
   private String title;
   private String content;
-  private LocalDate startDate;
-  private LocalDate endDate;
+  private LocalDateTime startDate;
+  private LocalDateTime endDate;
   private String writer;
 
   public Notice toEntity(NoticeRequestDto noticeRequestDto) {

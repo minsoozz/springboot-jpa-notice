@@ -1,6 +1,6 @@
 package com.example.notice.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -11,19 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLDelete(sql = "UPDATE notice SET delete_date = NOW() WHERE id = ?")
-@Where(clause = "delete_date IS NULL")
 public class Notice extends BaseEntity {
 
   @Id
@@ -33,6 +27,7 @@ public class Notice extends BaseEntity {
   @Column(nullable = false)
   private String title;
 
+  //TODO:: nullable & columnDefault 설정
   @Column(nullable = false)
   private String content;
 
@@ -43,21 +38,22 @@ public class Notice extends BaseEntity {
   private int views;
 
   @Column(nullable = false)
-  private LocalDate startDate;
+  private LocalDateTime startDate;
 
   @Column(nullable = false)
-  private LocalDate endDate;
+  private LocalDateTime endDate;
 
+  //TODO:: CascadeType 전략 수정
   @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Attachments> attachmentsList = new ArrayList<>();
 
   @Builder
-  public Notice(Long id, String title, String content, String writer, LocalDate startDate,
-      LocalDate endDate) {
-    this.id = id;
+  public Notice(String title, String content, String writer, int views, LocalDateTime startDate,
+      LocalDateTime endDate) {
     this.title = title;
     this.content = content;
     this.writer = writer;
+    this.views = views;
     this.startDate = startDate;
     this.endDate = endDate;
   }

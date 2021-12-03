@@ -12,10 +12,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class BaseEntity {
 
   @CreatedDate
-  private LocalDateTime createDate;
-
-  private LocalDateTime deleteDate;
+  private LocalDateTime createdDate;
 
   @LastModifiedDate
   private LocalDateTime modifiedDate;
+
+  private LocalDateTime deletedDate;
+
 }

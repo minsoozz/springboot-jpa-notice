@@ -22,12 +22,10 @@ public class NoticeController {
 
   private final NoticeService noticeService;
 
-
-  @PostMapping("")
-  public void insertNotice(
-      @RequestPart(value = "attachmentsList") List<MultipartFile> attachmentsList,
+  //TODO:: VO 객체로 변경
+  @PostMapping
+  public void insertNotice(@RequestPart(value = "attachmentsList") List<MultipartFile> attachmentsList,
       @RequestPart(value = "noticeRequestDto") NoticeRequestDto noticeRequestDto) {
-
     noticeService.insertNotice(noticeRequestDto, attachmentsList);
   }
 
@@ -38,7 +36,6 @@ public class NoticeController {
 
   @PutMapping("/{id}")
   public void updateNotice(@PathVariable Long id) {
-
   }
 
   @DeleteMapping("/{id}")

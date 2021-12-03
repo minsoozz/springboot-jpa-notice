@@ -23,6 +23,7 @@ public class NoticeService {
   private final AttachmentsRepository attachmentsRepository;
   private final AttachmentsService attachmentsService;
 
+  //TODO:: 객체지향적으로 리팩토링
   public void insertNotice(NoticeRequestDto noticeRequestDto, List<MultipartFile> attachmentsList) {
     Notice notice = noticeRequestDto.toEntity(noticeRequestDto);
     List<AttachmentsDto> attachmentsDtoList = attachmentsService.convertingMultipartFileToDtoList(attachmentsList);

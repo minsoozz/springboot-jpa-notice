@@ -16,8 +16,7 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom {
   @Override
   public NoticeResponseDto selectNotice(Long id) {
     return jpaQueryFactory.select(
-            new QNoticeResponseDto(notice.title, notice.content, notice.createDate,
-                notice.views, notice.writer))
+            new QNoticeResponseDto(notice.title, notice.content, notice.createdDate, notice.views, notice.writer))
         .from(notice)
         .where(notice.id.eq(id))
         .fetchOne();

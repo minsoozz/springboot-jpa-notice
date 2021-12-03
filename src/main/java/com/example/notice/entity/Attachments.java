@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Attachments extends BaseEntity {
 
   @Id
@@ -38,9 +36,8 @@ public class Attachments extends BaseEntity {
   private Notice notice;
 
   @Builder
-  public Attachments(Long id, String path, String originalName, String systemName,
+  public Attachments(String path, String originalName, String systemName,
       Long volume) {
-    this.id = id;
     this.path = path;
     this.originalName = originalName;
     this.systemName = systemName;

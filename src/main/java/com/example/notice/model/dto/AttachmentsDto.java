@@ -1,6 +1,7 @@
 package com.example.notice.model.dto;
 
 import com.example.notice.entity.Attachments;
+import java.io.Serializable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AttachmentsDto {
+public class AttachmentsDto implements Serializable {
 
   private String path;
   private String originalName;
