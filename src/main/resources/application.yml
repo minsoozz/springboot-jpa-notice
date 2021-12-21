@@ -11,13 +11,13 @@ spring:
   servlet:
     multipart:
       max-file-size: 100MB
-      location: C:\Users\minsoo
+      location: C:\notice
 
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true

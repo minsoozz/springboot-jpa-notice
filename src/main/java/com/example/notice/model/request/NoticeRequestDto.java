@@ -4,6 +4,7 @@ import com.example.notice.entity.Notice;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
@@ -19,7 +20,9 @@ public class NoticeRequestDto implements Serializable {
 
     private String title;
     private String content;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endDate;
     private String writer;
     private List<MultipartFile> multipartFileList;
