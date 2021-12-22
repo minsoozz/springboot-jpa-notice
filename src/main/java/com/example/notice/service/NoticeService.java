@@ -24,7 +24,8 @@ public class NoticeService {
 
   public void insertNotice(NoticeRequestDto noticeRequestDto) {
     Notice notice = noticeRequestDto.toEntity(noticeRequestDto);
-    List<AttachmentsDto> attachmentsDtoList = attachmentsService.convertingMultipartFileToDtoList(noticeRequestDto.getMultipartFileList());
+    List<AttachmentsDto> attachmentsDtoList = attachmentsService.convertingMultipartFileToDtoList(
+        noticeRequestDto.getAttachmentsList());
 
     if (!attachmentsDtoList.isEmpty()) {
       for (AttachmentsDto attachmentsDto : attachmentsDtoList) {
@@ -36,10 +37,19 @@ public class NoticeService {
   }
 
   public NoticeResponseDto selectNotice(Long id) {
-    return noticeRepository.selectNotice(id);
+    NoticeResponseDto noticeResponseDto = noticeRepository.selectNotice(id);
+    if (isNoticeId(noticeResponseDto.getId())) {
+      noticeResponseDto.updateAttachmentsList(
+          attachmentsRepository.selectAttachmentsByNoticeId(noticeResponseDto.getId()));
+    }
+    return noticeResponseDto;
   }
 
   public void deleteNotice(Long id) {
     noticeRepository.deleteById(id);
+  }
+
+  private boolean isNoticeId(Long id) {
+    return id != null;
   }
 }

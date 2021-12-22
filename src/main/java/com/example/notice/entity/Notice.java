@@ -1,60 +1,64 @@
 package com.example.notice.entity;
 
 import com.sun.istack.NotNull;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notice extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @NotNull
-    private String title;
+  @NotNull
+  private String title;
 
-    @NotNull
-    private String content;
+  @NotNull
+  private String content;
 
-    @NotNull
-    private String writer;
+  @NotNull
+  private String writer;
 
-    @NotNull
-    private int views;
+  @NotNull
+  private int views;
 
-    @NotNull
-    private LocalDateTime startDate;
+  @NotNull
+  private LocalDateTime startDate;
 
-    @NotNull
-    private LocalDateTime endDate;
+  @NotNull
+  private LocalDateTime endDate;
 
-    //TODO:: CascadeType 전략 수정
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Attachments> attachmentsList = new ArrayList<>();
+  //TODO:: CascadeType 전략 수정
+  @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Attachments> attachmentsList = new ArrayList<>();
 
-    @Builder
-    public Notice(String title, String content, String writer, int views, LocalDateTime startDate,
-                  LocalDateTime endDate) {
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-        this.views = views;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
+  @Builder
+  public Notice(String title, String content, String writer, int views, LocalDateTime startDate,
+      LocalDateTime endDate) {
+    this.title = title;
+    this.content = content;
+    this.writer = writer;
+    this.views = views;
+    this.startDate = startDate;
+    this.endDate = endDate;
+  }
 
-    public void addAttachments(Attachments attachments) {
-        this.attachmentsList.add(attachments);
-        attachments.addNotice(this);
-    }
+  public void addAttachments(Attachments attachments) {
+    this.attachmentsList.add(attachments);
+    attachments.addNotice(this);
+  }
 }

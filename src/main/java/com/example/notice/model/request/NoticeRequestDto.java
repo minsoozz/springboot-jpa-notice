@@ -1,40 +1,39 @@
 package com.example.notice.model.request;
 
 import com.example.notice.entity.Notice;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 public class NoticeRequestDto implements Serializable {
 
-    private static final long serialVersionUID = -8366073361742189237L;
+  private static final long serialVersionUID = -8366073361742189237L;
 
-    private String title;
-    private String content;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endDate;
-    private String writer;
-    private List<MultipartFile> multipartFileList;
+  private String title;
+  private String content;
+  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+  private LocalDateTime startDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+  private LocalDateTime endDate;
+  private String writer;
+  private List<MultipartFile> attachmentsList;
 
-    public Notice toEntity(NoticeRequestDto noticeRequestDto) {
-        return Notice
-                .builder()
-                .title(noticeRequestDto.getTitle())
-                .content(noticeRequestDto.getContent())
-                .startDate(noticeRequestDto.getStartDate())
-                .endDate(noticeRequestDto.getEndDate())
-                .writer(noticeRequestDto.getWriter())
-                .build();
-    }
+  public Notice toEntity(NoticeRequestDto noticeRequestDto) {
+    return Notice
+        .builder()
+        .title(noticeRequestDto.getTitle())
+        .content(noticeRequestDto.getContent())
+        .startDate(noticeRequestDto.getStartDate())
+        .endDate(noticeRequestDto.getEndDate())
+        .writer(noticeRequestDto.getWriter())
+        .build();
+  }
 }
