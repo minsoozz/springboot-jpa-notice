@@ -35,6 +35,5 @@ public class NoticeResponseDto extends CommonDto implements Serializable {
 
   public void updateAttachmentsList(List<AttachmentsResponseDto> attachmentsResponseDtoList) {
     this.attachmentsList = attachmentsResponseDtoList;
-
   }
 }
