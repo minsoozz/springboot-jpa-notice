@@ -8,6 +8,7 @@ import com.example.notice.model.request.NoticeUpdateRequestDto;
 import com.example.notice.model.response.NoticeResponseDto;
 import com.example.notice.repository.AttachmentsRepository;
 import com.example.notice.repository.NoticeRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +35,11 @@ public class NoticeService {
     return noticeResponseDto;
   }
 
+  @Transactional
   public void deleteNotice(Long id) {
-    noticeRepository.deleteById(id);
+    List<Long> attachmentsIdList = attachmentsRepository.selectAttachmentsIdListByNoticeId(id);
+    attachmentsRepository.deleteByNoticeIdInQuery(attachmentsIdList);
+    noticeRepository.deleteByIdInQuery(id);
   }
 
   @Transactional

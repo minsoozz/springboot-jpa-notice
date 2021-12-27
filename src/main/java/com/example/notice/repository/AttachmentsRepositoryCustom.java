@@ -7,5 +7,7 @@ public interface AttachmentsRepositoryCustom {
 
   List<AttachmentsResponseDto> selectAttachmentsByNoticeId(Long noticeId);
 
-  List<Long> selectAttachmentsIdListByNoticeId(Long id);
+  List<Long> selectAttachmentsIdListByNoticeId(Long noticeId);
+
+  Long deleteByNoticeIdInQuery(List<Long> noticeId);
 }

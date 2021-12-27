@@ -26,13 +26,18 @@ public class AttachmentsRepositoryCustomImpl implements AttachmentsRepositoryCus
   }
 
   @Override
-  public List<Long> selectAttachmentsIdListByNoticeId(Long id) {
+  public List<Long> selectAttachmentsIdListByNoticeId(Long noticeId) {
     return jpaQueryFactory
         .select(attachments.id)
         .from(attachments)
         .leftJoin(attachments.notice, notice)
-        .where(notice.id.eq(id))
+        .where(notice.id.eq(noticeId))
         .fetch();
 
+  }
+
+  @Override
+  public Long deleteByNoticeIdInQuery(List<Long> noticeId) {
+    return jpaQueryFactory.delete(attachments).where(attachments.id.in(noticeId)).execute();
   }
 }
