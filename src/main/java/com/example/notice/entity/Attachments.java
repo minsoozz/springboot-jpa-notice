@@ -1,6 +1,7 @@
 package com.example.notice.entity;
 
 import com.sun.istack.NotNull;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class Attachments extends BaseEntity {
   @NotNull
   private Long volume;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   private Notice notice;
 
   @Builder
@@ -43,7 +44,7 @@ public class Attachments extends BaseEntity {
     this.volume = volume;
   }
 
-  public void addNotice(Notice notice) {
+  public void updateNotice(Notice notice) {
     this.notice = notice;
   }
 }

@@ -15,13 +15,13 @@ public class AttachmentsResponseDto extends CommonDto implements Serializable {
 
   private static final long serialVersionUID = 7580364008055447034L;
 
+  private Long id;
   private String originalName;
-  private Long volume;
 
   @QueryProjection
-  public AttachmentsResponseDto(LocalDateTime createdDate, String originalName, Long volume) {
+  public AttachmentsResponseDto(LocalDateTime createdDate, Long id, String originalName) {
     super(createdDate);
+    this.id = id;
     this.originalName = originalName;
-    this.volume = volume;
   }
 }

@@ -18,10 +18,21 @@ public class AttachmentsRepositoryCustomImpl implements AttachmentsRepositoryCus
   @Override
   public List<AttachmentsResponseDto> selectAttachmentsByNoticeId(Long noticeId) {
     return jpaQueryFactory.select(
-            new QAttachmentsResponseDto(attachments.createdDate, attachments.originalName, attachments.volume))
+            new QAttachmentsResponseDto(attachments.createdDate, attachments.id, attachments.originalName))
         .from(attachments)
         .leftJoin(attachments.notice, notice)
         .where(notice.id.eq(noticeId))
         .fetch();
+  }
+
+  @Override
+  public List<Long> selectAttachmentsIdListByNoticeId(Long id) {
+    return jpaQueryFactory
+        .select(attachments.id)
+        .from(attachments)
+        .leftJoin(attachments.notice, notice)
+        .where(notice.id.eq(id))
+        .fetch();
+
   }
 }

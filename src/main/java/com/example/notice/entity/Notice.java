@@ -59,6 +59,16 @@ public class Notice extends BaseEntity {
 
   public void addAttachments(Attachments attachments) {
     this.attachmentsList.add(attachments);
-    attachments.addNotice(this);
+    attachments.updateNotice(this);
+  }
+
+  public void deleteAttachments(Attachments attachments) {
+    this.attachmentsList.remove(attachments);
+    attachments.updateNotice(null);
+  }
+
+  public void updateTitleAndContent(String title, String content) {
+    this.title = title;
+    this.content = content;
   }
 }

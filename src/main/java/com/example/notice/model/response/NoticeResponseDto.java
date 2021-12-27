@@ -4,6 +4,7 @@ import com.example.notice.model.dto.CommonDto;
 import com.querydsl.core.annotations.QueryProjection;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class NoticeResponseDto extends CommonDto implements Serializable {
   private String content;
   private int views;
   private String writer;
-  private List<AttachmentsResponseDto> attachmentsList;
+  private List<AttachmentsResponseDto> attachmentsList = new ArrayList<>();
 
   @QueryProjection
   public NoticeResponseDto(LocalDateTime createdDate, Long id, String title, String content, int views, String writer) {

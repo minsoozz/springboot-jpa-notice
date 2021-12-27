@@ -3,6 +3,7 @@ package com.example.notice.model.request;
 import com.example.notice.entity.Notice;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 @NoArgsConstructor
-public class NoticeRequestDto implements Serializable {
+public class NoticeInsertRequestDto implements Serializable {
 
   private static final long serialVersionUID = -8366073361742189237L;
 
@@ -24,16 +25,16 @@ public class NoticeRequestDto implements Serializable {
   @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
   private LocalDateTime endDate;
   private String writer;
-  private List<MultipartFile> attachmentsList;
+  private List<MultipartFile> attachmentsList = new ArrayList<>();
 
-  public Notice toEntity(NoticeRequestDto noticeRequestDto) {
+  public Notice toEntity(NoticeInsertRequestDto noticeInsertRequestDto) {
     return Notice
         .builder()
-        .title(noticeRequestDto.getTitle())
-        .content(noticeRequestDto.getContent())
-        .startDate(noticeRequestDto.getStartDate())
-        .endDate(noticeRequestDto.getEndDate())
-        .writer(noticeRequestDto.getWriter())
+        .title(noticeInsertRequestDto.getTitle())
+        .content(noticeInsertRequestDto.getContent())
+        .startDate(noticeInsertRequestDto.getStartDate())
+        .endDate(noticeInsertRequestDto.getEndDate())
+        .writer(noticeInsertRequestDto.getWriter())
         .build();
   }
 }

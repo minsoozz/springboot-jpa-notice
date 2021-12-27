@@ -6,4 +6,6 @@ import java.util.List;
 public interface AttachmentsRepositoryCustom {
 
   List<AttachmentsResponseDto> selectAttachmentsByNoticeId(Long noticeId);
+
+  List<Long> selectAttachmentsIdListByNoticeId(Long id);
 }
