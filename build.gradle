@@ -34,6 +34,9 @@ dependencies {
     //querydsl 추가
     implementation 'com.querydsl:querydsl-jpa'
     implementation 'com.querydsl:querydsl-apt'
+
+    // redis 추가
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 test {

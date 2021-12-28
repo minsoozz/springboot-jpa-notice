@@ -11,19 +11,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResultResponse<T> {
-    private int code;
-    private String message;
-    private T data;
 
-    public ResultResponse(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
+  private int code;
+  private String message;
+  private T data;
 
-    public ResultResponse<?> successResponse(T data) {
-        this.code = CodeType.SUCCESS.getCode();
-        this.message = CodeType.SUCCESS.getMessage();
-        this.data = data;
-        return new ResultResponse<>(this.code, this.message, this.data);
-    }
+  public ResultResponse(int code, String message) {
+    this.code = code;
+    this.message = message;
+  }
+
+  public ResultResponse<?> successResponse(T data) {
+    this.code = CodeType.SUCCESS.getCode();
+    this.message = CodeType.SUCCESS.getMessage();
+    this.data = data;
+    return new ResultResponse<>(this.code, this.message, this.data);
+  }
 }
