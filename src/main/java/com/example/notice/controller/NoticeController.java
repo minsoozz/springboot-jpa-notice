@@ -5,6 +5,7 @@ import com.example.notice.model.request.NoticeUpdateRequestDto;
 import com.example.notice.model.response.ResultResponse;
 import com.example.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class NoticeController {
   }
 
   @GetMapping("/{id}")
+  @Cacheable(key = "#id", value = "selectNotice")
   public ResultResponse<?> selectNotice(@PathVariable Long id) {
     return new ResultResponse<>().successResponse(noticeService.selectNotice(id));
   }
