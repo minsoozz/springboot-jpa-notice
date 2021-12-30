@@ -10,8 +10,10 @@ import com.example.notice.repository.AttachmentsRepository;
 import com.example.notice.repository.NoticeRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 @Service
 @Transactional
@@ -21,16 +23,23 @@ public class NoticeService {
   private final NoticeRepository noticeRepository;
   private final AttachmentsRepository attachmentsRepository;
   private final AttachmentsService attachmentsService;
+  private final RedisTemplate<String, Object> redisTemplate;
 
   public void insertNotice(NoticeInsertRequestDto noticeInsertRequestDto) {
     Notice notice = noticeInsertRequestDto.toEntity(noticeInsertRequestDto);
-    attachmentsService.insertAttachments(notice, noticeInsertRequestDto.getAttachmentsList());
+    noticeRepository.save(notice);
+    if (!ObjectUtils.isEmpty(noticeInsertRequestDto.getAttachments())) {
+      attachmentsService.insertAttachments(notice, noticeInsertRequestDto.getAttachments());
+    }
+
   }
 
   public NoticeResponseDto selectNotice(Long id) {
+    System.out.println("NoticeService.selectNotice");
     NoticeResponseDto noticeResponseDto = noticeRepository.selectNotice(id).orElseThrow(NoticeNotFoundException::new);
-    noticeResponseDto.updateAttachmentsList(
-        attachmentsRepository.selectAttachmentsByNoticeId(noticeResponseDto.getId()));
+    noticeResponseDto.updateAttachments(attachmentsRepository.selectAttachmentsByNoticeId(noticeResponseDto.getId()));
+
+    incrementNoticeViews(id);
 
     return noticeResponseDto;
   }
@@ -43,10 +52,17 @@ public class NoticeService {
   }
 
   @Transactional
-  public void updateNotice(Long id, NoticeUpdateRequestDto noticeUpdateRequestDto) {
+  public NoticeResponseDto updateNotice(Long id, NoticeUpdateRequestDto noticeUpdateRequestDto) {
     Notice notice = noticeRepository.findById(id).orElseThrow(NoticeNotFoundException::new);
     notice.updateTitleAndContent(noticeUpdateRequestDto.getTitle(), noticeUpdateRequestDto.getContent());
-    attachmentsService.updateAttachments(notice, noticeUpdateRequestDto.getTobeDeletedAttachmentsList());
-    attachmentsService.insertAttachments(notice, noticeUpdateRequestDto.getAttachmentsList());
+    attachmentsService.updateAttachments(notice, noticeUpdateRequestDto.getTobeDeletedAttachments());
+    attachmentsService.insertAttachments(notice, noticeUpdateRequestDto.getAttachments());
+
+    return noticeRepository.selectNotice(id).orElseThrow(NoticeNotFoundException::new);
+  }
+
+  public void incrementNoticeViews(Long id) {
+    Notice notice = noticeRepository.findById(id).orElseThrow(NoticeNotFoundException::new);
+    notice.incrementViews();
   }
 }

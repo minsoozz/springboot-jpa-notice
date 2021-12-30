@@ -23,7 +23,7 @@ public class NoticeUpdateRequestDto implements Serializable {
   private LocalDateTime startDate;
   @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
   private LocalDateTime endDate;
-  private List<MultipartFile> attachmentsList = new ArrayList<>();
-  private List<Long> tobeDeletedAttachmentsList = new ArrayList<>();
+  private List<MultipartFile> attachments = new ArrayList<>();
+  private List<Long> tobeDeletedAttachments = new ArrayList<>();
 
 }

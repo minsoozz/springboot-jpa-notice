@@ -1,10 +1,15 @@
 package com.example.notice.controller;
 
+import static com.example.notice.model.dto.RedisCacheKey.NOTICE;
+
 import com.example.notice.model.request.NoticeInsertRequestDto;
 import com.example.notice.model.request.NoticeUpdateRequestDto;
+import com.example.notice.model.response.NoticeResponseDto;
 import com.example.notice.model.response.ResultResponse;
 import com.example.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,17 +32,18 @@ public class NoticeController {
   }
 
   @GetMapping("/{id}")
-  @Cacheable(key = "#id", value = "selectNotice")
   public ResultResponse<?> selectNotice(@PathVariable Long id) {
     return new ResultResponse<>().successResponse(noticeService.selectNotice(id));
   }
 
   @PutMapping("/{id}")
-  public void updateNotice(@PathVariable Long id, NoticeUpdateRequestDto noticeUpdateRequestDto) {
-    noticeService.updateNotice(id, noticeUpdateRequestDto);
+  @CachePut(key = "#id", value = "notice")
+  public NoticeResponseDto updateNotice(@PathVariable Long id, NoticeUpdateRequestDto noticeUpdateRequestDto) {
+    return noticeService.updateNotice(id, noticeUpdateRequestDto);
   }
 
   @DeleteMapping("/{id}")
+  @CacheEvict(key = "#id", value = "notice")
   public void deleteNotice(@PathVariable Long id) {
     noticeService.deleteNotice(id);
   }

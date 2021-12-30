@@ -25,7 +25,7 @@ public class NoticeInsertRequestDto implements Serializable {
   @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
   private LocalDateTime endDate;
   private String writer;
-  private List<MultipartFile> attachmentsList = new ArrayList<>();
+  private List<MultipartFile> attachments = new ArrayList<>();
 
   public Notice toEntity(NoticeInsertRequestDto noticeInsertRequestDto) {
     return Notice

@@ -15,7 +15,6 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -27,7 +26,6 @@ public class AttachmentsService {
   private final AttachmentsRepository attachmentsRepository;
 
   public void insertAttachments(Notice notice, List<MultipartFile> multipartFileList) {
-    if (!ObjectUtils.isEmpty(multipartFileList)) {
       for (MultipartFile multipartFile : multipartFileList) {
         //TODO:: MultipartFile -> DTO -> Entity 과정이 맘에 들지 않음, MultipartFile -> Entity 과정이 가능한지
         AttachmentsDto attachmentsDto = multipartFileToDto(multipartFile);
@@ -35,7 +33,6 @@ public class AttachmentsService {
         notice.addAttachments(attachmentsRepository.save(attachments));
         insertMultipartFile(multipartFile, attachmentsDto.getSystemName());
       }
-    }
   }
 
   public void updateAttachments(Notice notice, List<Long> tobeDeletedAttachmentsList) {
