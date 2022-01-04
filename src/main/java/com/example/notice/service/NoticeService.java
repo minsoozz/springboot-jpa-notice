@@ -10,7 +10,6 @@ import com.example.notice.repository.AttachmentsRepository;
 import com.example.notice.repository.NoticeRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -23,7 +22,6 @@ public class NoticeService {
   private final NoticeRepository noticeRepository;
   private final AttachmentsRepository attachmentsRepository;
   private final AttachmentsService attachmentsService;
-  private final RedisTemplate<String, Object> redisTemplate;
 
   public void insertNotice(NoticeInsertRequestDto noticeInsertRequestDto) {
     Notice notice = noticeInsertRequestDto.toEntity(noticeInsertRequestDto);
