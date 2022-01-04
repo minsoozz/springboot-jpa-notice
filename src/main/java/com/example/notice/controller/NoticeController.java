@@ -1,7 +1,5 @@
 package com.example.notice.controller;
 
-import static com.example.notice.model.dto.RedisCacheKey.NOTICE;
-
 import com.example.notice.model.request.NoticeInsertRequestDto;
 import com.example.notice.model.request.NoticeUpdateRequestDto;
 import com.example.notice.model.response.NoticeResponseDto;
@@ -32,6 +30,7 @@ public class NoticeController {
   }
 
   @GetMapping("/{id}")
+  @Cacheable(key = "#id", value = "notice")
   public ResultResponse<?> selectNotice(@PathVariable Long id) {
     return new ResultResponse<>().successResponse(noticeService.selectNotice(id));
   }

@@ -34,11 +34,10 @@ public class NoticeService {
 
   }
 
+
   public NoticeResponseDto selectNotice(Long id) {
-    System.out.println("NoticeService.selectNotice");
     NoticeResponseDto noticeResponseDto = noticeRepository.selectNotice(id).orElseThrow(NoticeNotFoundException::new);
     noticeResponseDto.updateAttachments(attachmentsRepository.selectAttachmentsByNoticeId(noticeResponseDto.getId()));
-
     incrementNoticeViews(id);
 
     return noticeResponseDto;

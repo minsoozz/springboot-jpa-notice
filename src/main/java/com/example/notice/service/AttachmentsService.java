@@ -26,18 +26,17 @@ public class AttachmentsService {
   private final AttachmentsRepository attachmentsRepository;
 
   public void insertAttachments(Notice notice, List<MultipartFile> multipartFileList) {
-      for (MultipartFile multipartFile : multipartFileList) {
-        //TODO:: MultipartFile -> DTO -> Entity 과정이 맘에 들지 않음, MultipartFile -> Entity 과정이 가능한지
-        AttachmentsDto attachmentsDto = multipartFileToDto(multipartFile);
-        Attachments attachments = attachmentsDto.toEntity(attachmentsDto);
-        notice.addAttachments(attachmentsRepository.save(attachments));
-        insertMultipartFile(multipartFile, attachmentsDto.getSystemName());
-      }
+    for (MultipartFile multipartFile : multipartFileList) {
+      //TODO:: MultipartFile -> DTO -> Entity 과정이 맘에 들지 않음, MultipartFile -> Entity 과정이 가능한지
+      AttachmentsDto attachmentsDto = multipartFileToDto(multipartFile);
+      Attachments attachments = attachmentsDto.toEntity(attachmentsDto);
+      notice.addAttachments(attachmentsRepository.save(attachments));
+      insertMultipartFile(multipartFile, attachmentsDto.getSystemName());
+    }
   }
 
   public void updateAttachments(Notice notice, List<Long> tobeDeletedAttachmentsList) {
     for (Long attachmentsId : tobeDeletedAttachmentsList) {
-      System.out.println("attachmentsId = " + attachmentsId);
       Attachments attachments = attachmentsRepository.findById(attachmentsId)
           .orElseThrow(AttachmentNotFoundException::new);
       notice.deleteAttachments(attachments);
