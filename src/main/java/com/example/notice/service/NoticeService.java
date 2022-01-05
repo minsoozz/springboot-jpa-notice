@@ -37,7 +37,6 @@ public class NoticeService {
     NoticeResponseDto noticeResponseDto = noticeRepository.selectNotice(id).orElseThrow(NoticeNotFoundException::new);
     noticeResponseDto.updateAttachments(attachmentsRepository.selectAttachmentsByNoticeId(noticeResponseDto.getId()));
     incrementNoticeViews(id);
-
     return noticeResponseDto;
   }
 
