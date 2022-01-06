@@ -32,11 +32,9 @@ public class NoticeService {
 
   }
 
-
   public NoticeResponseDto selectNotice(Long id) {
     NoticeResponseDto noticeResponseDto = noticeRepository.selectNotice(id).orElseThrow(NoticeNotFoundException::new);
     noticeResponseDto.updateAttachments(attachmentsRepository.selectAttachmentsByNoticeId(noticeResponseDto.getId()));
-    incrementNoticeViews(id);
     return noticeResponseDto;
   }
 
@@ -44,7 +42,7 @@ public class NoticeService {
   public void deleteNotice(Long id) {
     List<Long> attachmentsIdList = attachmentsRepository.selectAttachmentsIdListByNoticeId(id);
     attachmentsRepository.deleteByNoticeIdInQuery(attachmentsIdList);
-    noticeRepository.deleteByIdInQuery(id);
+    noticeRepository.deleteById(id);
   }
 
   @Transactional

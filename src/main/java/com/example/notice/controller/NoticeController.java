@@ -32,7 +32,9 @@ public class NoticeController {
   @GetMapping("/{id}")
   @Cacheable(key = "#id", value = "notice")
   public ResultResponse<?> selectNotice(@PathVariable Long id) {
-    return new ResultResponse<>().successResponse(noticeService.selectNotice(id));
+    NoticeResponseDto noticeResponseDto = noticeService.selectNotice(id);
+    noticeService.incrementNoticeViews(noticeResponseDto.getId());
+    return new ResultResponse<>().successResponse(noticeResponseDto);
   }
 
   @PutMapping("/{id}")
