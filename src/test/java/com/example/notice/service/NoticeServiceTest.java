@@ -1,12 +1,14 @@
 package com.example.notice.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+import com.example.notice.model.response.AttachmentsResponseDto;
 import com.example.notice.model.response.NoticeResponseDto;
 import com.example.notice.repository.AttachmentsRepository;
 import com.example.notice.repository.NoticeRepository;
+import java.util.Arrays;
 import java.util.Optional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,15 +33,21 @@ class NoticeServiceTest {
   void selectNoticeTest() {
     // given
     NoticeResponseDto noticeResponseDto = new NoticeResponseDto();
-    noticeResponseDto.setTitle("테스트");
+    noticeResponseDto.setTitle("테스트제목");
+
+    AttachmentsResponseDto attachmentsResponseDto = new AttachmentsResponseDto();
+    attachmentsResponseDto.setOriginalName("테스트첨부파일");
+
+    noticeResponseDto.setAttachmentsList(Arrays.asList(attachmentsResponseDto));
 
     // when
     when(noticeRepository.selectNotice(1L)).thenReturn(Optional.of(noticeResponseDto));
-    String title = noticeService.selectNotice(1L).getTitle();
+    NoticeResponseDto resultDto = noticeService.selectNotice(1L);
 
     // then
-    Assertions.assertThat(title).isEqualTo(noticeResponseDto.getTitle());
-
+    assertThat(resultDto.getTitle()).isEqualTo(noticeResponseDto.getTitle());
+    assertThat(resultDto.getAttachmentsList().get(0).getOriginalName())
+        .isEqualTo(noticeResponseDto.getAttachmentsList().get(0).getOriginalName());
 
   }
 }
