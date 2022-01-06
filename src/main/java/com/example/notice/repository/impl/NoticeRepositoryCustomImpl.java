@@ -24,9 +24,4 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom {
         .fetchOne();
     return Optional.ofNullable(noticeResponseDto);
   }
-
-  @Override
-  public Long deleteByIdInQuery(Long id) {
-    return jpaQueryFactory.delete(notice).where(notice.id.eq(id)).execute();
-  }
 }
