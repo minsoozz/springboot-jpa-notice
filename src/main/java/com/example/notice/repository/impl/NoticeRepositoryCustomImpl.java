@@ -1,13 +1,14 @@
 package com.example.notice.repository.impl;
 
-import static com.example.notice.entity.QNotice.notice;
-
 import com.example.notice.model.response.NoticeResponseDto;
 import com.example.notice.model.response.QNoticeResponseDto;
 import com.example.notice.repository.NoticeRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
+
+import static com.example.notice.entity.QNotice.notice;
 
 @RequiredArgsConstructor
 public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom {

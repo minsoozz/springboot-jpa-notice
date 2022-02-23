@@ -1,14 +1,15 @@
 package com.example.notice.repository.impl;
 
-import static com.example.notice.entity.QAttachments.attachments;
-import static com.example.notice.entity.QNotice.notice;
-
 import com.example.notice.model.response.AttachmentsResponseDto;
 import com.example.notice.model.response.QAttachmentsResponseDto;
 import com.example.notice.repository.AttachmentsRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
+import static com.example.notice.entity.QAttachments.attachments;
+import static com.example.notice.entity.QNotice.notice;
 
 @RequiredArgsConstructor
 public class AttachmentsRepositoryCustomImpl implements AttachmentsRepositoryCustom {

@@ -1,12 +1,13 @@
 package com.example.notice.model.dto;
 
 import com.example.notice.entity.Attachments;
-import java.io.Serializable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.Serializable;
 
 @Getter
 @Setter

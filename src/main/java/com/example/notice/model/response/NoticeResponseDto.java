@@ -2,13 +2,14 @@ package com.example.notice.model.response;
 
 import com.example.notice.model.dto.CommonDto;
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Setter

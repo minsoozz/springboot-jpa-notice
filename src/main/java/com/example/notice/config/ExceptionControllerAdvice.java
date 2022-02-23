@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
-public class ExceptionControllerAdvice {
+public class ExceptionControllerAdvice<T> {
 
   @ExceptionHandler(NoticeNotFoundException.class)
-  public ResultResponse noticeNotFoundException() {
-    return new ResultResponse(CodeType.NOTICE_NOT_FOUND.getCode(), CodeType.NOTICE_NOT_FOUND.getMessage());
+  public ResultResponse<T> noticeNotFoundException() {
+    return new ResultResponse<>(CodeType.NOTICE_NOT_FOUND.getCode(), CodeType.NOTICE_NOT_FOUND.getMessage());
   }
 
   @ExceptionHandler(AttachmentNotFoundException.class)
-  public ResultResponse AttachmentNotFoundException() {
-    return new ResultResponse(CodeType.ATTACHMENT_NOT_FOUND.getCode(), CodeType.ATTACHMENT_NOT_FOUND.getMessage());
+  public ResultResponse<T> attachmentNotFoundException() {
+    return new ResultResponse<>(CodeType.ATTACHMENT_NOT_FOUND.getCode(), CodeType.ATTACHMENT_NOT_FOUND.getMessage());
   }
 }
