@@ -25,6 +25,7 @@ public class NoticeResponseDto extends CommonDto implements Serializable {
   private String writer;
   private List<AttachmentsResponseDto> attachmentsList = new ArrayList<>();
 
+
   @QueryProjection
   public NoticeResponseDto(LocalDateTime createdDate, Long id, String title, String content, int views, String writer) {
     super(createdDate);

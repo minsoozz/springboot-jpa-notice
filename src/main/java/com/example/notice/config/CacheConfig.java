@@ -15,6 +15,7 @@ import java.util.Map;
 
 import static org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair.fromSerializer;
 
+
 @Configuration
 @RequiredArgsConstructor
 public class CacheConfig {

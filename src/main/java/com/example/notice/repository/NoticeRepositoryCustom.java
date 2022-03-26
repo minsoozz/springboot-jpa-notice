@@ -8,3 +8,4 @@ public interface NoticeRepositoryCustom {
 
   Optional<NoticeResponseDto> selectNotice(Long id);
 }
+

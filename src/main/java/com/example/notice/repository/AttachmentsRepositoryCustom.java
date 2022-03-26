@@ -12,3 +12,4 @@ public interface AttachmentsRepositoryCustom {
 
   Long deleteByNoticeIdInQuery(List<Long> noticeId);
 }
+

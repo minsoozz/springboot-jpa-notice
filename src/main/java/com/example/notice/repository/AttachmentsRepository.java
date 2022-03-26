@@ -8,3 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface AttachmentsRepository extends JpaRepository<Attachments, Long>, AttachmentsRepositoryCustom {
 
 }
+
