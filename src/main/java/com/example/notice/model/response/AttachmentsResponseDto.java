@@ -19,6 +19,7 @@ public class AttachmentsResponseDto extends CommonDto implements Serializable {
   private Long id;
   private String originalName;
 
+
   @QueryProjection
   public AttachmentsResponseDto(LocalDateTime createdDate, Long id, String originalName) {
     super(createdDate);

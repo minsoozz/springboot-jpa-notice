@@ -31,6 +31,7 @@ public class NoticeService {
       attachmentsService.insertAttachments(notice, noticeInsertRequestDto.getAttachments());
     }
 
+
   }
 
   public NoticeResponseDto selectNotice(Long id) {

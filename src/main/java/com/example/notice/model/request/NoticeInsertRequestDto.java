@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class NoticeInsertRequestDto implements Serializable {
 
+
   private static final long serialVersionUID = -8366073361742189237L;
 
   private String title;

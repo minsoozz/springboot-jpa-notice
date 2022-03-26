@@ -36,6 +36,7 @@ public class AttachmentsService {
     }
   }
 
+
   public void updateAttachments(Notice notice, List<Long> tobeDeletedAttachmentsList) {
     for (Long attachmentsId : tobeDeletedAttachmentsList) {
       Attachments attachments = attachmentsRepository.findById(attachmentsId)

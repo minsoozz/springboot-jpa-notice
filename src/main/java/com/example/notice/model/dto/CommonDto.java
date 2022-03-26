@@ -25,3 +25,4 @@ public abstract class CommonDto {
     this.createdDate = createdDate;
   }
 }
+

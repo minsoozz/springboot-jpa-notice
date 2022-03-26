@@ -12,3 +12,4 @@ public enum CodeType {
   private int code;
   private String message;
 }
+

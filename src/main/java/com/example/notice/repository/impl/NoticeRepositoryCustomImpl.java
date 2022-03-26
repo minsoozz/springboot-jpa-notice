@@ -26,3 +26,4 @@ public class NoticeRepositoryCustomImpl implements NoticeRepositoryCustom {
     return Optional.ofNullable(noticeResponseDto);
   }
 }
+

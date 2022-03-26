@@ -21,6 +21,7 @@ public class ResultResponse<T> {
     this.message = message;
   }
 
+
   public ResultResponse<T> successResponse(T data) {
     this.code = CodeType.SUCCESS.getCode();
     this.message = CodeType.SUCCESS.getMessage();
