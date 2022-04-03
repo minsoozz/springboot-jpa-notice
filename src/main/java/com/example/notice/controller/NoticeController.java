@@ -1,5 +1,8 @@
 package com.example.notice.controller;
 
+import static com.example.notice.model.dto.CodeType.CREATED;
+import static com.example.notice.model.dto.CodeType.DELETE;
+
 import com.example.notice.model.request.NoticeInsertRequestDto;
 import com.example.notice.model.request.NoticeUpdateRequestDto;
 import com.example.notice.model.response.NoticeResponseDto;
@@ -25,13 +28,14 @@ public class NoticeController {
   private final NoticeService noticeService;
 
   @PostMapping
-  public void insertNotice(NoticeInsertRequestDto noticeInsertRequestDto) {
+  public ResultResponse insertNotice(NoticeInsertRequestDto noticeInsertRequestDto) {
     noticeService.insertNotice(noticeInsertRequestDto);
+    return new ResultResponse<>(CREATED.getCode(), CREATED.getMessage());
   }
 
   @GetMapping("/{id}")
   @Cacheable(key = "#id", value = "notice")
-  public ResultResponse<?> selectNotice(@PathVariable Long id) {
+  public ResultResponse selectNotice(@PathVariable Long id) {
     NoticeResponseDto noticeResponseDto = noticeService.selectNotice(id);
     noticeService.incrementNoticeViews(noticeResponseDto.getId());
     return new ResultResponse<>().successResponse(noticeResponseDto);
@@ -45,7 +49,8 @@ public class NoticeController {
 
   @DeleteMapping("/{id}")
   @CacheEvict(key = "#id", value = "notice")
-  public void deleteNotice(@PathVariable Long id) {
+  public ResultResponse deleteNotice(@PathVariable Long id) {
     noticeService.deleteNotice(id);
+    return new ResultResponse<>(DELETE.getCode(), DELETE.getMessage());
   }
 }

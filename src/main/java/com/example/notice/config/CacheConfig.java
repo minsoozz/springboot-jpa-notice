@@ -1,8 +1,9 @@
 package com.example.notice.config;
 
+import static com.example.notice.model.dto.RedisCacheType.NOTICE;
+import static com.example.notice.model.dto.RedisCacheType.VIEWS;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair.fromSerializer;
 
-import com.example.notice.model.dto.RedisCacheKey;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,8 +42,8 @@ public class CacheConfig {
 
   private Map<String, RedisCacheConfiguration> customConfigurationMap() {
     Map<String, RedisCacheConfiguration> customConfigurationMap = new HashMap<>();
-    customConfigurationMap.put(RedisCacheKey.NOTICE, defaultConfiguration().entryTtl(Duration.ofSeconds(5L)));
-    customConfigurationMap.put(RedisCacheKey.VIEWS, defaultConfiguration().entryTtl(Duration.ofDays(1L)));
+    customConfigurationMap.put(NOTICE.getKey(), defaultConfiguration().entryTtl(NOTICE.getDuration()));
+    customConfigurationMap.put(VIEWS.getKey(), defaultConfiguration().entryTtl(VIEWS.getDuration()));
     return customConfigurationMap;
   }
 }

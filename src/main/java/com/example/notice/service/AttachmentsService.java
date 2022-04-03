@@ -13,11 +13,13 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AttachmentsService {
 
@@ -55,8 +57,7 @@ public class AttachmentsService {
     try {
       multipartFile.transferTo(file);
     } catch (IOException e) {
-      //TODO:: Exception 처리가 깔끔하지 못하다.
-      e.printStackTrace();
+      log.error("e.getMessage() : {}, e.getCause() : {}", e.getMessage(), e.getCause());
     }
   }
 
@@ -65,6 +66,7 @@ public class AttachmentsService {
     try {
       Files.delete(filePath);
     } catch (IOException | SecurityException e) {
+      log.error("e.getMessage() : {}, e.getCause() : {}", e.getMessage(), e.getCause());
       return false;
     }
     return true;
